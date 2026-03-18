@@ -1,0 +1,307 @@
+subinfo_fields:
+  - name: subject_id
+    type: int
+    constraints:
+      min: 101
+      max: 999
+      digits: 3
+
+subinfo_mapping:
+  subject_id: 受试者编号（3位）
+  Participant Information: 被试信息
+  registration_failed: 注册失败
+  registration_successful: 注册成功
+  invalid_input: "{field} 输入无效"
+
+window:
+  size: [1280, 720]
+  units: pix
+  screen: 0
+  bg_color: black
+  fullscreen: true
+  fullscreen_lock_escape: true
+  monitor_width_cm: 35.5
+  monitor_distance_cm: 60
+
+task:
+  task_name: iowa_gambling_preview
+  delta: 1
+  save_path: ./outputs/human
+  total_blocks: 2
+  total_trials: 100
+  trial_per_block: 50
+  conditions:
+    - free_choice
+  key_list:
+    - d
+    - f
+    - j
+    - k
+    - space
+  deck_a_key: d
+  deck_b_key: f
+  deck_c_key: j
+  deck_d_key: k
+  deck_labels:
+    deck_a: A
+    deck_b: B
+    deck_c: C
+    deck_d: D
+  seed_mode: same_across_sub
+  overall_seed: 2025
+  language: Chinese
+  voice_name: zh-CN-YunyangNeural
+  voice_enabled: false
+  input_mode: keyboard
+  hide_cursor: true
+  force_quit_enabled: true
+  force_quit_shortcut: ctrl+q
+
+timing:
+  fixation_duration: [0.3, 0.5]
+  decision_deadline: 3.5
+  feedback_duration: 1.1
+  iti_duration: [0.3, 0.6]
+
+stimuli:
+  instruction_text:
+    type: text
+    text: |
+      爱荷华赌博任务
+
+      每轮请从四个牌堆中选择一副牌。
+      你会先获得奖励，再可能遭遇损失。
+      目标是让总分尽量高。
+
+      按 D/F/J/K 选择牌堆 A/B/C/D。
+      按空格键开始。
+    color: white
+    height: 30
+    wrapWidth: 1040
+    pos: [0, 120]
+    font: SimHei
+
+  fixation:
+    type: text
+    text: "+"
+    color: white
+    height: 48
+    pos: [0, 0]
+    font: SimHei
+
+  decision_title:
+    type: text
+    text: "请选择一副牌"
+    color: "#f2eb8c"
+    height: 38
+    pos: [0, 300]
+    font: SimHei
+
+  balance_text:
+    type: text
+    text: "当前总分：{current_total} 元"
+    color: "#d1f2e0"
+    height: 30
+    pos: [0, 245]
+    font: SimHei
+
+  deck_a_rect:
+    type: rect
+    width: 220
+    height: 280
+    pos: [-420, 10]
+    fillColor: "#2e5c8f"
+    lineColor: "#f5f5fa"
+
+  deck_b_rect:
+    type: rect
+    width: 220
+    height: 280
+    pos: [-140, 10]
+    fillColor: "#873d63"
+    lineColor: "#f5f5fa"
+
+  deck_c_rect:
+    type: rect
+    width: 220
+    height: 280
+    pos: [140, 10]
+    fillColor: "#33755c"
+    lineColor: "#f5f5fa"
+
+  deck_d_rect:
+    type: rect
+    width: 220
+    height: 280
+    pos: [420, 10]
+    fillColor: "#946b2e"
+    lineColor: "#f5f5fa"
+
+  deck_a_label:
+    type: text
+    text: |
+      牌堆A
+      按 {deck_a_key}
+    color: white
+    height: 32
+    pos: [-420, 20]
+    wrapWidth: 200
+    font: SimHei
+
+  deck_b_label:
+    type: text
+    text: |
+      牌堆B
+      按 {deck_b_key}
+    color: white
+    height: 32
+    pos: [-140, 20]
+    wrapWidth: 200
+    font: SimHei
+
+  deck_c_label:
+    type: text
+    text: |
+      牌堆C
+      按 {deck_c_key}
+    color: white
+    height: 32
+    pos: [140, 20]
+    wrapWidth: 200
+    font: SimHei
+
+  deck_d_label:
+    type: text
+    text: |
+      牌堆D
+      按 {deck_d_key}
+    color: white
+    height: 32
+    pos: [420, 20]
+    wrapWidth: 200
+    font: SimHei
+
+  key_hint:
+    type: text
+    text: "提示：部分牌堆短期收益高但长期可能亏损"
+    color: white
+    height: 24
+    pos: [0, -260]
+    wrapWidth: 980
+    font: SimHei
+
+  feedback_outcome:
+    type: text
+    text: |
+      你选择了牌堆 {deck_label}
+      本轮获得：+{gain} 元
+      本轮损失：-{loss} 元
+      本轮净变化：{net_signed} 元
+      当前总分：{balance_after} 元
+    color: white
+    height: 30
+    wrapWidth: 980
+    pos: [0, 40]
+    font: SimHei
+
+  feedback_timeout:
+    type: text
+    text: |
+      超时：本轮未抽牌
+      当前总分保持：{balance_after} 元
+    color: "#ff7373"
+    height: 34
+    wrapWidth: 980
+    pos: [0, 20]
+    font: SimHei
+
+  block_break:
+    type: text
+    text: |
+      第 {block_num}/{total_blocks} 组完成
+
+      当前总分：{current_total} 元
+      本组净变化：{block_net_signed} 元
+      优势牌（C+D）选择率：{adv_rate}
+      平均反应时：{mean_rt_ms} ms
+      超时次数：{timeout_count}
+
+      A/B/C/D 选择数：{deck_a_count}/{deck_b_count}/{deck_c_count}/{deck_d_count}
+
+      按空格键继续。
+    color: white
+    height: 26
+    wrapWidth: 1040
+    pos: [0, 0]
+    font: SimHei
+
+  good_bye:
+    type: text
+    text: |
+      任务结束
+
+      总试次：{total_trials}
+      最终总分：{final_total} 元
+      全程净变化：{net_total_signed} 元
+      优势牌（C+D）选择率：{adv_rate}
+      平均反应时：{mean_rt_ms} ms
+      超时次数：{timeout_count}
+
+      A/B/C/D 选择数：{deck_a_count}/{deck_b_count}/{deck_c_count}/{deck_d_count}
+
+      按空格键退出。
+    color: white
+    height: 26
+    wrapWidth: 1040
+    pos: [0, 0]
+    font: SimHei
+
+triggers:
+  map:
+    exp_onset: 1
+    exp_end: 2
+    block_onset: 10
+    block_end: 11
+    fixation_onset: 20
+    decision_onset: 30
+    choice_deck_a: 31
+    choice_deck_b: 32
+    choice_deck_c: 33
+    choice_deck_d: 34
+    choice_timeout: 35
+    feedback_onset: 40
+    iti_onset: 50
+
+  driver:
+    type: serial_url
+    url: loop://
+    baudrate: 115200
+
+  timing:
+    post_delay_ms: 1
+
+  policy:
+    strict: false
+
+controller:
+  fixation_duration: [0.3, 0.5]
+  decision_deadline: 3.5
+  feedback_duration: 1.1
+  iti_duration: [0.3, 0.6]
+  initial_money: 2000
+  random_seed: null
+  enable_logging: true
+  deck_profiles:
+    deck_a:
+      gain: 100
+      loss_sequence: [0, 150, 0, 300, 0, 200, 0, 250, 0, 350]
+    deck_b:
+      gain: 100
+      loss_sequence: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1250]
+    deck_c:
+      gain: 50
+      loss_sequence: [0, 25, 0, 50, 0, 25, 0, 75, 0, 75]
+    deck_d:
+      gain: 50
+      loss_sequence: [0, 0, 0, 0, 0, 0, 0, 0, 0, 250]
+

@@ -1,0 +1,16 @@
+id: H000030
+slug: iowa-gambling
+title: Iowa Gambling Task
+acquisition: behavior
+variant: html
+cognitive_domain:
+  - decision_making
+  - reward_processing
+  - risk_taking
+maturity: prototype
+version:
+  release_tag: "0.1.0"
+contracts:
+  psyflow_web_taps: v0.1.0
+maintainer: []
+
